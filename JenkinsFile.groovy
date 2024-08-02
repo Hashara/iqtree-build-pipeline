@@ -66,15 +66,38 @@ pipeline {
         }
         stage("Build") {
             steps {
+                /*
+
+                    1. build-mpi --> build the mpi version of iqtree2
+                    2. build-wompi --> build the non-mpi + openmp version of iqtree2
+                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
+                    4. build-nn-mpi --> build the mpi + NN version of iqtree2
+                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
+                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                 */
                 script {
                     sh """
                         ssh ${NCI_ALIAS} << EOF
+
                                               
                         echo "building mpi version"                        
                         sh ${BUILD_SCRIPTS}/jenkins-cmake-build-mpi.sh ${BUILD_MPI} ${IQTREE_DIR}
                         
                         echo "building non-mpi + openmp version"
                         sh ${BUILD_SCRIPTS}/jenkins-cmake-build-wompi.sh ${BUILD_WOMPI} ${IQTREE_DIR}
+
+                        echo "building NN version"
+                        sh ${BUILD_SCRIPTS}/jenkins-cmake-build-nn.sh ${BUILD_NN} ${IQTREE_DIR}
+
+                        echo "building mpi + NN version"
+                        sh ${BUILD_SCRIPTS}/jenkins-cmake-build-nn-mpi.sh ${BUILD_NN_MPI} ${IQTREE_DIR}
+
+                        echo "building non-mpi (openmp) + openmp + NN + GPU version"
+                        sh ${BUILD_SCRIPTS}/jenkins-cmake-build-gpu-nn.sh ${BUILD_GPU_NN} ${IQTREE_DIR}
+
+                        echo "building mpi + NN + GPU version"
+                        sh ${BUILD_SCRIPTS}/jenkins-cmake-build-gpu-nn-mpi.sh ${BUILD_GPU_NN_MPI} ${IQTREE_DIR}
+                        
 
                         exit
                         EOF
