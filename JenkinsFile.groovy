@@ -19,6 +19,16 @@ pipeline {
     }
     stages {
     // ssh to NCI_ALIAS and scp build-scripts to working dir in NCI
+        stage('Copy build scripts') {
+            steps {
+                script {
+//                    sh "mkdir -p ${WORKING_DIR}"
+//                    sh "cp -r build-scripts ${WORKING_DIR}"
+                    sh "pwd"
+                    sh "scp -r build-scripts ${NCI_ALIAS}:${WORKING_DIR}"
+                }
+            }
+        }
         stage('Setup environment') {
             steps {
                 script {
@@ -34,15 +44,15 @@ pipeline {
                 }
             }
         }
-        stage('Copy build scripts') {
-            steps {
-                script {
-                    sh "mkdir -p ${WORKING_DIR}"
-                    sh "cp -r build-scripts ${WORKING_DIR}"
-                    sh "scp -r build-scripts ${NCI_ALIAS}:${WORKING_DIR}"
-                }
-            }
-        }
+//        stage('Copy build scripts') {
+//            steps {
+//                script {
+////                    sh "mkdir -p ${WORKING_DIR}"
+////                    sh "cp -r build-scripts ${WORKING_DIR}"
+//                    sh "scp -r build-scripts ${NCI_ALIAS}:${WORKING_DIR}"
+//                }
+//            }
+//        }
 //        stage('Run') {
 //            steps {
 //                script {
@@ -53,7 +63,7 @@ pipeline {
         stage ('Verify') {
             steps {
                 script {
-                    sh "ssh ${NCI_ALIAS} 'cd ${WORKING_DIR}/build-scripts && ls -l'"
+                    sh "ssh ${NCI_ALIAS} 'cd ${WORKING_DIR} && ls -l'"
                 }
             }
         }
