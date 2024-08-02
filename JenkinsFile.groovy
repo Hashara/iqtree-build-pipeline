@@ -69,14 +69,13 @@ pipeline {
                 script {
                     sh """
                         ssh ${NCI_ALIAS} << EOF
-                        mkdir -p ${WORKING_DIR}/build
-                        cd ${WORKING_DIR}/build
-                      
-                        echo "building mpi version"
-                        
+                                              
+                        echo "building mpi version"                        
                         sh ${BUILD_SCRIPTS}/jenkins-cmake-build-mpi.sh ${BUILD_MPI} ${IQTREE_DIR}
-                          
                         
+                        echo "building non-mpi + openmp version"
+                        sh ${BUILD_SCRIPTS}/jenkins-cmake-build-wompi.sh ${BUILD_WOMPI} ${IQTREE_DIR}
+
                         exit
                         EOF
                         """
