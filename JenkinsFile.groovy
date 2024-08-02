@@ -15,6 +15,7 @@ pipeline {
         IQTREE_GIT_URL = "https://github.com/iqtree/iqtree2.git"
         NCI_ALIAS = "nci_gadi"
         WORKING_DIR = "/scratch/dx61/sa0557/iqtree2/ci-cd"
+        GIT_REPO = "iqtree2"
 
     }
     stages {
@@ -22,8 +23,6 @@ pipeline {
         stage('Copy build scripts') {
             steps {
                 script {
-//                    sh "mkdir -p ${WORKING_DIR}"
-//                    sh "cp -r build-scripts ${WORKING_DIR}"
                     sh "pwd"
                     sh "scp -r build-scripts ${NCI_ALIAS}:${WORKING_DIR}"
                 }
@@ -36,7 +35,8 @@ pipeline {
                         ssh ${NCI_ALIAS} << EOF
                         mkdir -p ${WORKING_DIR}
                         cd  ${WORKING_DIR}
-                        git clone ${IQTREE_GIT_URL} .
+                        git clone ${IQTREE_GIT_URL}
+                        cd ${GIT_REPO}
                         git checkout ${params.BRANCH}
                         exit
                         EOF
