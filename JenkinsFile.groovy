@@ -55,7 +55,7 @@ pipeline {
                         ssh ${NCI_ALIAS} << EOF
                         mkdir -p ${WORKING_DIR}
                         cd  ${WORKING_DIR}
-                        git clone ${IQTREE_GIT_URL}
+                        git clone --recusive ${IQTREE_GIT_URL}
                         cd ${GIT_REPO}
                         git checkout ${params.BRANCH}
                         exit
