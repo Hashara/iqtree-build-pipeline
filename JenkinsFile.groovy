@@ -18,6 +18,7 @@ pipeline {
         GIT_REPO = "iqtree2"
         BUILD_SCRIPTS = "${WORKING_DIR}/build-scripts"
         IQTREE_DIR = "${WORKING_DIR}/${GIT_REPO}"
+        BUILD_OUTPUT_DIR = "${WORKING_DIR}/builds"
 
         // build directories
         /*
@@ -29,12 +30,12 @@ pipeline {
             4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
             6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
          */
-        BUILD_MPI = "${WORKING_DIR}/build-mpi"
-        BUILD_WOMPI = "${WORKING_DIR}/build-wompi"
-        BUILD_NN = "${WORKING_DIR}/build-nn"
-        BUILD_NN_MPI = "${WORKING_DIR}/build-nn-mpi"
-        BUILD_GPU_NN = "${WORKING_DIR}/build-gpu-nn"
-        BUILD_GPU_NN_MPI = "${WORKING_DIR}/build-gpu-nn-mpi"
+        BUILD_MPI = "${BUILD_OUTPUT_DIR}/build-mpi"
+        BUILD_WOMPI = "${BUILD_OUTPUT_DIR}/build-wompi"
+        BUILD_NN = "${BUILD_OUTPUT_DIR}/build-nn"
+        BUILD_NN_MPI = "${BUILD_OUTPUT_DIR}/build-nn-mpi"
+        BUILD_GPU_NN = "${BUILD_OUTPUT_DIR}/build-gpu-nn"
+        BUILD_GPU_NN_MPI = "${BUILD_OUTPUT_DIR}/build-gpu-nn-mpi"
 
 
     }
@@ -58,6 +59,9 @@ pipeline {
                         git clone --recursive ${IQTREE_GIT_URL}
                         cd ${GIT_REPO}
                         git checkout ${params.BRANCH}
+                        mkdir -p ${BUILD_OUTPUT_DIR}
+                        cd ${BUILD_OUTPUT_DIR}
+                        rm -rf *
                         exit
                         EOF
                         """
