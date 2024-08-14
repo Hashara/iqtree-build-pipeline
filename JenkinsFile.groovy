@@ -21,8 +21,8 @@ pipeline {
     }
     environment {
         IQTREE_GIT_URL = "https://github.com/iqtree/iqtree2.git"
-        NCI_ALIAS="${params.NCI_ALIAS}"
-        WORKING_DIR="${params.WORKING_DIR}"
+        NCI_ALIAS = "${params.NCI_ALIAS}"
+        WORKING_DIR = "${params.WORKING_DIR}"
         GIT_REPO = "iqtree2"
         BUILD_SCRIPTS = "${WORKING_DIR}/build-scripts"
         IQTREE_DIR = "${WORKING_DIR}/${GIT_REPO}"
@@ -48,7 +48,7 @@ pipeline {
 
     }
     stages {
-    // ssh to NCI_ALIAS and scp build-scripts to working dir in NCI
+        // ssh to NCI_ALIAS and scp build-scripts to working dir in NCI
         stage('Copy build scripts') {
             steps {
                 script {
@@ -141,6 +141,40 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
         stage("Build: Build NN") {
             steps {
                 // this stage only runs if NN is enabled
+                script {
+                    if ("${params.NN}") {
+                        /*
+
+                        1. build-mpi --> build the mpi version of iqtree2
+                        2. build-wompi --> build the non-mpi + openmp version of iqtree2
+                        3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
+                        4. build-nn-mpi --> build the mpi + NN version of iqtree2
+                        4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
+                        6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                     */
+
+                        sh """
+                        ssh ${NCI_ALIAS} << EOF
+
+                        echo "building NN version"
+                        sh ${BUILD_SCRIPTS}/jenkins-cmake-build-nn.sh ${BUILD_NN} ${IQTREE_DIR} ${BUILD_SCRIPTS}/env.sh
+
+                        exit
+                        EOF
+                        """
+
+                    } else {
+                        echo "NN is disabled"
+                    }
+                }
+
+
+            }
+        }
+
+        stage("Build: Build NN MPI") {
+            script {
+                // this stage only runs if NN is enabled
                 if ("${params.NN}") {
                     /*
 
@@ -151,36 +185,6 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
                     6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
                  */
-                    script {
-                        sh """
-                        ssh ${NCI_ALIAS} << EOF
-
-                        echo "building NN version"
-                        sh ${BUILD_SCRIPTS}/jenkins-cmake-build-nn.sh ${BUILD_NN} ${IQTREE_DIR} ${BUILD_SCRIPTS}/env.sh
-
-                        exit
-                        EOF
-                        """
-                    }
-                } else {
-                    echo "NN is disabled"
-                }
-            }
-        }
-
-        stage("Build: Build NN MPI") {
-            // this stage only runs if NN is enabled
-            if ("${params.NN}") {
-                /*
-
-                    1. build-mpi --> build the mpi version of iqtree2
-                    2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                    4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
-                 */
-                script {
                     sh """
                         ssh ${NCI_ALIAS} << EOF
 
@@ -190,17 +194,18 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         exit
                         EOF
                         """
+
+                } else {
+                    echo "NN is disabled"
                 }
-            }
-            else {
-                echo "NN is disabled"
             }
         }
 
         stage("Build: Build GPU NN") {
             // this stage only runs if GPU is enabled
-            if ("${params.GPU}") {
-                /*
+            script {
+                if ("${params.GPU}") {
+                    /*
 
                     1. build-mpi --> build the mpi version of iqtree2
                     2. build-wompi --> build the non-mpi + openmp version of iqtree2
@@ -209,7 +214,6 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
                     6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
                  */
-                script {
                     sh """
                         ssh ${NCI_ALIAS} << EOF
 
@@ -220,17 +224,18 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         exit
                         EOF
                         """
+
+                } else {
+                    echo "GPU is disabled"
                 }
-            }
-            else {
-                echo "GPU is disabled"
             }
         }
 
         stage("Build: Build GPU NN MPI") {
             // this stage only runs if GPU is enabled
-            if ("${params.GPU}") {
-                /*
+            script {
+                if ("${params.GPU}") {
+                    /*
 
                     1. build-mpi --> build the mpi version of iqtree2
                     2. build-wompi --> build the non-mpi + openmp version of iqtree2
@@ -239,7 +244,6 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
                     6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
                  */
-                script {
                     sh """
                         ssh ${NCI_ALIAS} << EOF
 
@@ -250,14 +254,14 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         exit
                         EOF
                         """
+
+                } else {
+                    echo "GPU is disabled"
                 }
-            }
-            else {
-                echo "GPU is disabled"
             }
         }
 
-        stage ('Verify') {
+        stage('Verify') {
             steps {
                 script {
                     sh "ssh ${NCI_ALIAS} 'cd ${WORKING_DIR} && ls -l'"
