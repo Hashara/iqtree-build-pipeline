@@ -173,10 +173,11 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
         }
 
         stage("Build: Build NN MPI") {
-            script {
-                // this stage only runs if NN is enabled
-                if ("${params.NN}") {
-                    /*
+            steps {
+                script {
+                    // this stage only runs if NN is enabled
+                    if ("${params.NN}") {
+                        /*
 
                     1. build-mpi --> build the mpi version of iqtree2
                     2. build-wompi --> build the non-mpi + openmp version of iqtree2
@@ -185,7 +186,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
                     6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
                  */
-                    sh """
+                        sh """
                         ssh ${NCI_ALIAS} << EOF
 
                         echo "building mpi + NN version"
@@ -195,17 +196,19 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         EOF
                         """
 
-                } else {
-                    echo "NN is disabled"
+                    } else {
+                        echo "NN is disabled"
+                    }
                 }
             }
         }
 
         stage("Build: Build GPU NN") {
             // this stage only runs if GPU is enabled
-            script {
-                if ("${params.GPU}") {
-                    /*
+            steps {
+                script {
+                    if ("${params.GPU}") {
+                        /*
 
                     1. build-mpi --> build the mpi version of iqtree2
                     2. build-wompi --> build the non-mpi + openmp version of iqtree2
@@ -214,7 +217,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
                     6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
                  */
-                    sh """
+                        sh """
                         ssh ${NCI_ALIAS} << EOF
 
                         echo "building non-mpi (openmp) + openmp + NN + GPU version"
@@ -225,26 +228,28 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         EOF
                         """
 
-                } else {
-                    echo "GPU is disabled"
+                    } else {
+                        echo "GPU is disabled"
+                    }
                 }
             }
         }
 
         stage("Build: Build GPU NN MPI") {
             // this stage only runs if GPU is enabled
-            script {
-                if ("${params.GPU}") {
-                    /*
+            steps {
+                script {
+                    if ("${params.GPU}") {
+                        /*
 
-                    1. build-mpi --> build the mpi version of iqtree2
-                    2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                    4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
-                 */
-                    sh """
+                        1. build-mpi --> build the mpi version of iqtree2
+                        2. build-wompi --> build the non-mpi + openmp version of iqtree2
+                        3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
+                        4. build-nn-mpi --> build the mpi + NN version of iqtree2
+                        4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
+                        6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                     */
+                        sh """
                         ssh ${NCI_ALIAS} << EOF
 
                         echo "building mpi + NN + GPU version"
@@ -255,8 +260,9 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         EOF
                         """
 
-                } else {
-                    echo "GPU is disabled"
+                    } else {
+                        echo "GPU is disabled"
+                    }
                 }
             }
         }
