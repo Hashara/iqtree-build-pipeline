@@ -7,9 +7,9 @@ pipeline {
     agent any
     parameters {
         string(name: 'BRANCH', defaultValue: 'master', description: 'Branch to build')
-        string(name: NCI_ALIAS, defaultValue: 'nci_gadi', description: 'ssh alias, if you do not have one, create one')
+        string(name: 'NCI_ALIAS', defaultValue: 'nci_gadi', description: 'ssh alias, if you do not have one, create one')
 
-        string(name: WORKING_DIR, defaultValue: '/scratch/dx61/sa0557/iqtree2/ci-cd', description: 'Working directory')
+        string(name: 'WORKING_DIR', defaultValue: '/scratch/dx61/sa0557/iqtree2/ci-cd', description: 'Working directory')
 
         // bool for building NN
         booleanParam(defaultValue: true, description: 'Run the NN?', name: 'NN')
