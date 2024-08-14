@@ -5,18 +5,20 @@
 
 pipeline {
     agent any
-    parameters([
-            string(name: 'BRANCH', defaultValue: 'master', description: 'Branch to build'),
-            string(name:NCI_ALIAS, defaultValue: 'nci_gadi', description: 'ssh alias, if you do not have one, create one'),
-            string(name:WORKING_DIR, defaultValue: '/scratch/dx61/sa0557/iqtree2/ci-cd', description: 'Working directory'),
-            // bool for building NN
-            booleanParam(defaultValue: true, description: 'Run the NN?', name: 'NN'),
-            string(name: 'ONNX_NN', description: 'onnxruntime for NN (use 1.12 version)',defaultValue:'/scratch/dx61/sa0557/iqtree2/onnxruntime-linux-x64-1.12.1' ),
-            booleanParam(defaultValue: true, description: 'Run the GPU?', name: 'GPU'),
-            string(name: 'ONNX_NN_GPU', description: 'onnxruntime for NN-CUDA (use 1.12 version)', defaultValue: '/scratch/dx61/sa0557/iqtree2/onnxruntime-linux-x64-gpu-1.12.1' ),
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'master', description: 'Branch to build')
+        string(name: NCI_ALIAS, defaultValue: 'nci_gadi', description: 'ssh alias, if you do not have one, create one')
 
+        string(name: WORKING_DIR, defaultValue: '/scratch/dx61/sa0557/iqtree2/ci-cd', description: 'Working directory')
 
-    ])
+        // bool for building NN
+        booleanParam(defaultValue: true, description: 'Run the NN?', name: 'NN')
+        string(name: 'ONNX_NN', description: 'onnxruntime for NN (use 1.12 version)', defaultValue: '/scratch/dx61/sa0557/iqtree2/onnxruntime-linux-x64-1.12.1')
+
+        booleanParam(defaultValue: true, description: 'Run the GPU?', name: 'GPU')
+        string(name: 'ONNX_NN_GPU', description: 'onnxruntime for NN-CUDA (use 1.12 version)', defaultValue: '/scratch/dx61/sa0557/iqtree2/onnxruntime-linux-x64-gpu-1.12.1')
+
+    }
     environment {
         IQTREE_GIT_URL = "https://github.com/iqtree/iqtree2.git"
         NCI_ALIAS=${params.NCI_ALIAS}
