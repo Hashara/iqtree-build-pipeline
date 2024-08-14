@@ -68,6 +68,7 @@ pipeline {
                         cd ${GIT_REPO}
                         git checkout ${params.BRANCH}
                         mkdir -p ${BUILD_OUTPUT_DIR}
+                        mkdir -p ${BUILD_SCRIPTS}
                         cd ${BUILD_OUTPUT_DIR}
                         rm -rf *
                         exit
