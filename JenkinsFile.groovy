@@ -21,8 +21,8 @@ pipeline {
     }
     environment {
         IQTREE_GIT_URL = "https://github.com/iqtree/iqtree2.git"
-        NCI_ALIAS=${params.NCI_ALIAS}
-        WORKING_DIR=${params.WORKING_DIR}
+        NCI_ALIAS="${params.NCI_ALIAS}"
+        WORKING_DIR="${params.WORKING_DIR}"
         GIT_REPO = "iqtree2"
         BUILD_SCRIPTS = "${WORKING_DIR}/build-scripts"
         IQTREE_DIR = "${WORKING_DIR}/${GIT_REPO}"
@@ -75,7 +75,7 @@ pipeline {
                         """
 
                     // create env.sh file if NN or GPU is enabled
-                    if (params.NN || params.GPU) {
+                    if ("${params.NN}" || "${params.GPU}") {
                         def envFileContent = """
 export ONNX_NN=${params.ONNX_NN}
 export ONNX_NN_GPU=${params.ONNX_NN_GPU}
@@ -141,7 +141,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
         stage("Build: Build NN") {
             steps {
                 // this stage only runs if NN is enabled
-                if (params.NN) {
+                if ("${params.NN}") {
                     /*
 
                     1. build-mpi --> build the mpi version of iqtree2
@@ -170,7 +170,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
 
         stage("Build: Build NN MPI") {
             // this stage only runs if NN is enabled
-            if (params.NN) {
+            if ("${params.NN}") {
                 /*
 
                     1. build-mpi --> build the mpi version of iqtree2
@@ -199,7 +199,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
 
         stage("Build: Build GPU NN") {
             // this stage only runs if GPU is enabled
-            if (params.GPU) {
+            if ("${params.GPU}") {
                 /*
 
                     1. build-mpi --> build the mpi version of iqtree2
@@ -229,7 +229,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
 
         stage("Build: Build GPU NN MPI") {
             // this stage only runs if GPU is enabled
-            if (params.GPU) {
+            if ("${params.GPU}") {
                 /*
 
                     1. build-mpi --> build the mpi version of iqtree2
