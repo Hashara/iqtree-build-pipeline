@@ -81,7 +81,9 @@ pipeline {
 export ONNX_NN=${params.ONNX_NN}
 export ONNX_NN_GPU=${params.ONNX_NN_GPU}
 """
-                        writeFile file: "${BUILD_SCRIPTS}/env.sh", text: envFileContent
+                        writeFile file: "env.sh", text: envFileContent
+
+                        sh "scp env.sh ${NCI_ALIAS}:${BUILD_SCRIPTS}"
                     }
 
                 }
