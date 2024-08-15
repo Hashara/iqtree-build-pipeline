@@ -168,6 +168,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
 
                     } else {
                         echo "NN is disabled"
+                        echo "${params.NN}"
                     }
                 }
 
