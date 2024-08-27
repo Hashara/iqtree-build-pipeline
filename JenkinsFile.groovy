@@ -45,7 +45,14 @@ pipeline {
             steps {
                 script {
                     sh "pwd"
-                    sh "scp -r build-scripts ${NCI_ALIAS}:${WORKING_DIR}"
+                    sh """
+                        ssh ${NCI_ALIAS} << EOF
+                        mkdir -p ${WORKING_DIR}
+                        mkdir -p ${BUILD_SCRIPTS}
+                        exit
+                        EOF
+                        """
+                    sh "scp -r build-scripts/* ${NCI_ALIAS}:${BUILD_SCRIPTS}"
                 }
             }
         }
