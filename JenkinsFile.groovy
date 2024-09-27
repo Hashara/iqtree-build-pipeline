@@ -72,7 +72,7 @@ pipeline {
                         cd ${BUILD_OUTPUT_DIR}
                         rm -rf *
                         exit
-                        EOF
+                        
                         """
 
                     // create env.sh file if NN or GPU is enabled
@@ -110,7 +110,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         
                        
                         exit
-                        EOF
+                        
                         """
                 }
             }
@@ -135,7 +135,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         sh ${BUILD_SCRIPTS}/jenkins-cmake-build-wompi.sh ${BUILD_WOMPI} ${IQTREE_DIR}
 
                         exit
-                        EOF
+                        
                         """
                 }
             }
@@ -163,7 +163,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         sh ${BUILD_SCRIPTS}/jenkins-cmake-build-nn.sh ${BUILD_NN} ${IQTREE_DIR} ${BUILD_SCRIPTS}/env.sh
 
                         exit
-                        EOF
+                        
                         """
 
                     } else {
@@ -197,7 +197,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         sh ${BUILD_SCRIPTS}/jenkins-cmake-build-nn-mpi.sh ${BUILD_NN_MPI} ${IQTREE_DIR} ${BUILD_SCRIPTS}/env.sh
 
                         exit
-                        EOF
+                        
                         """
 
                     } else {
@@ -229,7 +229,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         
 
                         exit
-                        EOF
+                        
                         """
 
                     } else {
@@ -261,7 +261,7 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                         
 
                         exit
-                        EOF
+                       
                         """
 
                     } else {
