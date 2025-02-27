@@ -34,5 +34,5 @@ cd $work_dir
 cmake -DCMAKE_CXX_FLAGS="$LDFLAGS $CPPFLAGS" \
 -DEIGEN3_INCLUDE_DIR=/apps/eigen/3.3.7/include/eigen3 \
 -Donnxruntime_INCLUDE_DIRS="${ONNX_NN}/include" -Donnxruntime_LIBRARIES="${ONNX_NN}/lib/libonnxruntime.so" \
--DUSE_OLD_NN=ON $code_dir
+-DUSE_OLD_NN=ON -DUSE_CMAPLE=OFF $code_dir
 make -j
