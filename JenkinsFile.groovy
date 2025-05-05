@@ -24,7 +24,7 @@ pipeline {
         IQTREE_GIT_URL = "${params.IQTREE_GIT_URL}"
         NCI_ALIAS = "${params.NCI_ALIAS}"
         WORKING_DIR = "${params.WORKING_DIR}"
-        GIT_REPO = "iqtree2"
+        GIT_REPO = "iqtree3"
         BUILD_SCRIPTS = "${WORKING_DIR}/build-scripts"
         IQTREE_DIR = "${WORKING_DIR}/${GIT_REPO}"
         BUILD_OUTPUT_DIR = "${WORKING_DIR}/builds"
@@ -32,12 +32,12 @@ pipeline {
         // build directories
         /*
 
-            1. build-mpi --> build the mpi version of iqtree2
-            2. build-wompi --> build the non-mpi + openmp version of iqtree2
-            3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-            4. build-nn-mpi --> build the mpi + NN version of iqtree2
-            4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-            6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+            1. build-mpi --> build the mpi version of iqtree3
+            2. build-wompi --> build the non-mpi + openmp version of iqtree3
+            3. build-nn --> build the non-mpi + openmp + NN version of iqtree3
+            4. build-nn-mpi --> build the mpi + NN version of iqtree3
+            4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree3
+            6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree3
          */
         BUILD_MPI = "${BUILD_OUTPUT_DIR}/build-mpi"
         BUILD_WOMPI = "${BUILD_OUTPUT_DIR}/build-wompi"
@@ -94,12 +94,12 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
             steps {
                 /*
 
-                    1. build-mpi --> build the mpi version of iqtree2
-                    2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                    4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                    1. build-mpi --> build the mpi version of iqtree3
+                    2. build-wompi --> build the non-mpi + openmp version of iqtree3
+                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree3
+                    4. build-nn-mpi --> build the mpi + NN version of iqtree3
+                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree3
+                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree3
                  */
                 script {
                     sh """
@@ -121,12 +121,12 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
             steps {
                 /*
 
-                    1. build-mpi --> build the mpi version of iqtree2
-                    2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                    4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                    1. build-mpi --> build the mpi version of iqtree3
+                    2. build-wompi --> build the non-mpi + openmp version of iqtree3
+                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree3
+                    4. build-nn-mpi --> build the mpi + NN version of iqtree3
+                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree3
+                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree3
                  */
                 script {
                     sh """
@@ -149,12 +149,12 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     if ("${params.NN}"=="true") {
                         /*
 
-                        1. build-mpi --> build the mpi version of iqtree2
-                        2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                        3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                        4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                        4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                        6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                        1. build-mpi --> build the mpi version of iqtree3
+                        2. build-wompi --> build the non-mpi + openmp version of iqtree3
+                        3. build-nn --> build the non-mpi + openmp + NN version of iqtree3
+                        4. build-nn-mpi --> build the mpi + NN version of iqtree3
+                        4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree3
+                        6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree3
                      */
 
                         sh """
@@ -184,12 +184,12 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     if ("${params.NN}"=="true") {
                         /*
 
-                    1. build-mpi --> build the mpi version of iqtree2
-                    2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                    4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                    1. build-mpi --> build the mpi version of iqtree3
+                    2. build-wompi --> build the non-mpi + openmp version of iqtree3
+                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree3
+                    4. build-nn-mpi --> build the mpi + NN version of iqtree3
+                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree3
+                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree3
                  */
                         sh """
                         ssh ${NCI_ALIAS} << EOF
@@ -215,12 +215,12 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     if ("${params.GPU}"=="true") {
                         /*
 
-                    1. build-mpi --> build the mpi version of iqtree2
-                    2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                    4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                    1. build-mpi --> build the mpi version of iqtree3
+                    2. build-wompi --> build the non-mpi + openmp version of iqtree3
+                    3. build-nn --> build the non-mpi + openmp + NN version of iqtree3
+                    4. build-nn-mpi --> build the mpi + NN version of iqtree3
+                    4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree3
+                    6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree3
                  */
                         sh """
                         ssh ${NCI_ALIAS} << EOF
@@ -247,12 +247,12 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
                     if ("${params.GPU}"=="true") {
                         /*
 
-                        1. build-mpi --> build the mpi version of iqtree2
-                        2. build-wompi --> build the non-mpi + openmp version of iqtree2
-                        3. build-nn --> build the non-mpi + openmp + NN version of iqtree2
-                        4. build-nn-mpi --> build the mpi + NN version of iqtree2
-                        4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree2
-                        6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree2
+                        1. build-mpi --> build the mpi version of iqtree3
+                        2. build-wompi --> build the non-mpi + openmp version of iqtree3
+                        3. build-nn --> build the non-mpi + openmp + NN version of iqtree3
+                        4. build-nn-mpi --> build the mpi + NN version of iqtree3
+                        4. build-gpu-nn --> build the non-mpi (openmp) + openmp + NN + GPU version of iqtree3
+                        6. build-gpu-nn-mpi --> build the mpi + NN + GPU version of iqtree3
                      */
                         sh """
                         ssh ${NCI_ALIAS} << EOF
