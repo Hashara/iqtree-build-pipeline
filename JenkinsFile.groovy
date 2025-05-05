@@ -6,6 +6,7 @@
 pipeline {
     agent any
     parameters {
+        string(name:'IQTREE_GIT_URL',defaultValue: 'https://github.com/Hashara/iqtree3.git')
         string(name: 'BRANCH', defaultValue: 'master', description: 'Branch to build')
         string(name: 'NCI_ALIAS', defaultValue: 'nci_gadi', description: 'ssh alias, if you do not have one, create one')
 
@@ -20,7 +21,7 @@ pipeline {
 
     }
     environment {
-        IQTREE_GIT_URL = "https://github.com/iqtree/iqtree2.git"
+        IQTREE_GIT_URL = ${params.IQTREE_GIT_URL}
         NCI_ALIAS = "${params.NCI_ALIAS}"
         WORKING_DIR = "${params.WORKING_DIR}"
         GIT_REPO = "iqtree2"
