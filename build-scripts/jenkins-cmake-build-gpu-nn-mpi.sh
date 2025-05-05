@@ -35,6 +35,6 @@ cmake -DCMAKE_CXX_FLAGS="$LDFLAGS $CPPFLAGS" \
 -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx -DEIGEN3_INCLUDE_DIR=/apps/eigen/3.3.7/include/eigen3 \
 -Donnxruntime_INCLUDE_DIRS="${ONNX_NN_GPU}/include" -Donnxruntime_LIBRARIES="${ONNX_NN_GPU}/lib/libonnxruntime.so" \
 -Dcuda_INCLUDE_DIRS="${cuda_dir}/include" -Dcuda_LIBRARIES="${cuda_dir}/lib64" \
--DUSE_OLD_NN=ON -DUSE_CMAPLE=OFF\
+-DUSE_OLD_NN=ON -DUSE_CMAPLE=OFF \
 -DUSE_CUDA=ON $code_dir
 make -j
