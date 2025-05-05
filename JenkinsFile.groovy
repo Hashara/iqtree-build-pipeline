@@ -21,7 +21,7 @@ pipeline {
 
     }
     environment {
-        IQTREE_GIT_URL = ${params.IQTREE_GIT_URL}
+        IQTREE_GIT_URL = "${params.IQTREE_GIT_URL}"
         NCI_ALIAS = "${params.NCI_ALIAS}"
         WORKING_DIR = "${params.WORKING_DIR}"
         GIT_REPO = "iqtree2"
