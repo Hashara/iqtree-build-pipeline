@@ -1,8 +1,3 @@
-//  a JenkinsFile to build iqtree
-// paramters
-//  1. git branch
-// 2. git url
-
 pipeline {
     agent any
     parameters {
