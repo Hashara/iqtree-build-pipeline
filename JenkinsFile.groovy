@@ -281,12 +281,12 @@ export ONNX_NN_GPU=${params.ONNX_NN_GPU}
     post {
         always {
             echo 'Cleaning up workspace'
-            cleanWs()
+            // cleanWs()
         }
     }
 }
 
-def void cleanWs() {
-    // ssh to NCI_ALIAS and remove the working directory
-    sh "ssh ${NCI_ALIAS} 'rm -rf ${IQTREE_DIR} ${BUILD_SCRIPTS}'"
-}
+// def void cleanWs() {
+//     // ssh to NCI_ALIAS and remove the working directory
+//     sh "ssh ${NCI_ALIAS} 'rm -rf ${IQTREE_DIR} ${BUILD_SCRIPTS}'"
+// }
